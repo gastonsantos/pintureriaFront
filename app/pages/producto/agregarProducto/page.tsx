@@ -19,7 +19,9 @@ export default function AgregarProducto() {
   });
 
   useEffect(() => {
-    setNombre(localStorage.getItem("nombre") || "");
+    if (typeof window !== "undefined") {
+      setNombre(localStorage.getItem("nombre") || "");
+    }
   }, []);
 
   const [error, setError] = useState<string | null>(null);

@@ -32,10 +32,13 @@ const login = async (data) => {
             Cookies.set("direccion", decode.direccion, { expires: expiracion });
             //Cookies.set("refreshToken", refreshToken,{ expires: expiracion } );
 
-            localStorage.setItem("token", token);
-            localStorage.setItem("id", decode.id);
-            localStorage.setItem("nombre", decode.nombre);
-            localStorage.setItem("direccion", decode.direccion)
+       // Guardar información en localStorage solo en el navegador
+       if (typeof window !== "undefined") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", decode.id);
+        localStorage.setItem("nombre", decode.nombre);
+        localStorage.setItem("direccion", decode.direccion);
+    }
             //localStorage.setItem("refreshToken", refreshToken)
            //localStorage.setItem("id",decode.nameid );
 
@@ -59,10 +62,13 @@ const Logout =  () => {
     Cookies.remove("direccion");
     
     
-    localStorage.removeItem("token");
-    localStorage.removeItem("direccion");
-    localStorage.removeItem("nombre");
-    localStorage.removeItem("id");
+  // Guardar información en localStorage solo en el navegador
+  if (typeof window !== "undefined") {
+    localStorage.setItem("token", token);
+    localStorage.setItem("id", decode.id);
+    localStorage.setItem("nombre", decode.nombre);
+    localStorage.setItem("direccion", decode.direccion);
+}
     return true;
 }
 

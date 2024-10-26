@@ -19,7 +19,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setNombre(localStorage.getItem("nombre") || "");
+      if (typeof window !== "undefined") {
+        setNombre(localStorage.getItem("nombre") || "");
+      }
 
       try {
         const response = await obtenerProductos();
