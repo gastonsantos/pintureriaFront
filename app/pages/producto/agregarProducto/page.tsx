@@ -11,7 +11,7 @@ export default function AgregarProducto() {
   const router = useRouter();
   const [nombre, setNombre] = useState('');
   const [producto, setProducto] = useState<Producto>({
-    id : Number(localStorage.getItem("id")) || 0,
+    id : 0,
     nombre: '',
     precio: 0,
     descripcion: '',
@@ -19,8 +19,13 @@ export default function AgregarProducto() {
   });
 
   useEffect(() => {
+    // Asegurarse de que el código se ejecuta solo en el navegador
     if (typeof window !== "undefined") {
       setNombre(localStorage.getItem("nombre") || "");
+      setProducto(prevProducto => ({
+        ...prevProducto,
+        id: Number(localStorage.getItem("id")) || 0
+      }));
     }
   }, []);
 
