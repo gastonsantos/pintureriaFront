@@ -64,10 +64,10 @@ const Logout =  () => {
     
   // Guardar información en localStorage solo en el navegador
   if (typeof window !== "undefined") {
-    localStorage.setItem("token", token);
-    localStorage.setItem("id", decode.id);
-    localStorage.setItem("nombre", decode.nombre);
-    localStorage.setItem("direccion", decode.direccion);
+    localStorage.remove("token", token);
+    localStorage.remove("id", decode.id);
+    localStorage.remove("nombre", decode.nombre);
+    localStorage.remove("direccion", decode.direccion);
 }
     return true;
 }
