@@ -95,7 +95,7 @@ const Login = () => {
           {showCredentials && (
             <div className="mt-1 bg-black text-sm p-2 w-128 text-white border border-gray-300 rounded-md shadow-lg">
               <p>Este es un proyecto de prueba Api rest en Java Spring.</p>
-              <p>Con inicio de sesion y seguridad JWT, con excepciones personalizadas </p>
+              <p>Con inicio de sesion y seguridad JWT, con excepciones personalizadas.</p>
               <p><strong>Pintureria Veronica</strong> </p>
               <p><strong>Usuario:</strong> roberto123</p>
               <p><strong>Contraseña:</strong> 12345</p>
