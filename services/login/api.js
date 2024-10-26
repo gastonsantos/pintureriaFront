@@ -62,13 +62,13 @@ const Logout =  () => {
     Cookies.remove("direccion");
     
     
-  // Guardar información en localStorage solo en el navegador
-  if (typeof window !== "undefined") {
-    localStorage.remove("token", token);
-    localStorage.remove("id", decode.id);
-    localStorage.remove("nombre", decode.nombre);
-    localStorage.remove("direccion", decode.direccion);
-}
+    if (typeof window !== "undefined") {
+        // Usa removeItem para eliminar claves en localStorage
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("nombre");
+        localStorage.removeItem("direccion");
+    }
     return true;
 }
 
