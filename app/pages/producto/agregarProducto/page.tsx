@@ -53,7 +53,7 @@ export default function AgregarProducto() {
       const response = await agregarProductoAlBackend(producto);
       if (response === 200) {
         Swal.fire({
-          title: '¡Producto agregado',
+          title: '¡Producto agregado!',
           text: 'Se ha agregado el producto.',
           icon: 'success',
           confirmButtonText: 'Continuar',
