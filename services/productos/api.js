@@ -37,6 +37,20 @@ async function obtenerProductos() {
     }
 }
 
+async function eliminarProducto(id) {
+  const data = {
+    "id": id
+  }
+  try {  
+      const response = await axiosInstance.post(API+"/api/eliminarProducto", data);
+      
+      if (response.data != null) {
+          return response.data;
+      }
+  } catch (error) {
+      throw error; 
+  }
+}
 async function guardarCambios(data){
   try {
     // Usa el id como un parámetro de consulta en la URL
@@ -64,4 +78,4 @@ async function agregarProductoAlBackend(data){
     throw error; // Re-lanzar el error para manejarlo en el componente que llama
 }
 }
-  export { obtenerProductos, obtenerProductoDetalle,guardarCambios,agregarProductoAlBackend };
+  export { obtenerProductos, obtenerProductoDetalle,guardarCambios,agregarProductoAlBackend,eliminarProducto};

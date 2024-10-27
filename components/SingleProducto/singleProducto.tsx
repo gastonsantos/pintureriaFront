@@ -2,7 +2,8 @@
 import { Producto } from "@/model/Producto";
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
-import { guardarCambios } from "@/services/productos/api";
+import { eliminarProducto, guardarCambios } from "@/services/productos/api";
+import Swal from 'sweetalert2';
 const SingleProducto = ({ producto }: { producto: Producto | undefined }) => {
     const router = useRouter();
     const [descripcion, setDescripcion] = useState('');
@@ -43,7 +44,7 @@ const SingleProducto = ({ producto }: { producto: Producto | undefined }) => {
             console.log("Data producto", data);
             const response = await guardarCambios(data);
             if (response != null) {
-              console.log("Hay algo", response.data);
+              
               router.push('/pages/home');
             } else {
               console.log("Hay algo", response);
@@ -67,6 +68,47 @@ const SingleProducto = ({ producto }: { producto: Producto | undefined }) => {
         console.log("Descripción:", descripcion);
         console.log("Precio:", precio);
       };
+
+      async function handleEliminarProducto ()  {
+
+          try {
+            
+            const response = await eliminarProducto(producto?.id);
+            if (response != null) {
+              
+                Swal.fire({
+                  title: '¡Producto eliminado',
+                  text: 'Se ha eliminado el producto.',
+                  icon: 'success',
+                  confirmButtonText: 'Continuar',
+                  confirmButtonColor: '#007bff',
+                }).then(() => {
+                  router.push('/pages/home');
+                });
+            
+            } else {
+              console.log("Hay algo", response);
+              console.error('No se Pudieron Enviar los datos al backend');
+            }
+          } catch (error: any) {
+            if (error.response) {
+                switch (error.response.status) {
+                  case 400:
+                    setError('Producto no encontrado, no se pudo eliminar');
+                    break;
+                  default:
+                    setError('Error en la petición al servidor');
+                }
+              } else {
+                
+                setError('Error en la petición al servidor');
+              }
+          }
+
+
+
+      }
+
 
   if (!producto) {
     return <p className="text-center text-gray-500">Cargando producto...</p>;
@@ -107,11 +149,18 @@ const SingleProducto = ({ producto }: { producto: Producto | undefined }) => {
         </div>
 
         <button
-          type="button" // Cambia a "submit" si deseas enviar el formulario
+          type="button" 
           onClick={handleGuardarCambios}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Guardar cambios
+        </button>
+        <button
+          type="button" 
+          onClick={handleEliminarProducto}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Eliminar
         </button>
         <div className="text-red-500 text-lg">{error}</div>
       </form>
